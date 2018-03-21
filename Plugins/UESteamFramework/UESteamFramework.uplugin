@@ -1,0 +1,29 @@
+{
+  "FileVersion": 3,
+  "Version": 1,
+  "VersionName": "1.0",
+  "FriendlyName": "UESteamFramework",
+  "Description": "A library that supports the steamworks sdk more in detail with lobby and advanced session support.",
+  "Category": "Other",
+  "CreatedBy": "Marc Fraedrich",
+  "CreatedByURL": "https://github.com/thetruebander",
+  "DocsURL": "",
+  "MarketplaceURL": "",
+  "SupportURL": "",
+  "CanContainContent": true,
+  "IsBetaVersion": true,
+  "Installed": false,
+  "Modules": [
+    {
+      "Name": "UESteamFramework",
+      "Type": "Developer",
+      "LoadingPhase": "PreDefault"
+    }
+  ],
+  "Plugins": [
+    {
+      "Name": "OnlineSubsystemNull",
+      "Enabled": true
+    }
+  ]
+}
