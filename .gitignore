@@ -13,8 +13,9 @@
 # Precompiled Headers
 *.gch
 *.pch
+*.response
 *.exp
-*.dll.response
+
 # Compiled Dynamic libraries
 *.so
 *.dylib

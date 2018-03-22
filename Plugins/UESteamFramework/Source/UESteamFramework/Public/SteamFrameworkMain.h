@@ -55,6 +55,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category="Steam|Lobby")
 	void CreateLobby(FLobbyData LobbyData);
 
+	UFUNCTION(BlueprintCallable, Category = "Steam|Lobby")
+		void JoinLobby(FSteamID LobbyID);
+
 	UPROPERTY(BlueprintAssignable, Category = "Steam|Lobby|Callbacks")
 	FOnLobbyCreatedCallback LobbyCreated;
 
@@ -71,11 +74,14 @@ public:
 	UPROPERTY(BlueprintAssignable, Category = "Steam|Lobby|Callbacks")
 		FOnLobbyDataUpdateCallback  OnLobbyDataUpdate;
 
+
+	//Steam Lambda Callbacks
 	CLambdaCallResult<LobbyCreated_t> CallResult_LobbyCreated;
+	CLambdaCallResult<LobbyEnter_t> CallResult_LobbyEntered;
 
 private:
 	IOnlineSubsystem* OnlineInterface = IOnlineSubsystem::Get();
 
 	STEAM_CALLBACK(USteamFrameworkMain, OnLobbyDataUpdate_Steam, LobbyDataUpdate_t);
-	
+	STEAM_CALLBACK(USteamFrameworkMain, OnSteamLobbyJoinRequest, GameLobbyJoinRequested_t);
 };

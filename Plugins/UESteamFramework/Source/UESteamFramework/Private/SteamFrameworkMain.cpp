@@ -117,7 +117,10 @@ void USteamFrameworkMain::CreateLobby(FLobbyData LobbyInfo)
 			FLobbyData LobbyPublicInfo;
 			LobbyPublicInfo.SetPassword(LobbyInfo.LobbyPassword);
 			SteamMatchmaking()->SetLobbyData(CSteamID(LobbyData.SteamID.SteamID), TCHAR_TO_UTF8("LobbyPassword"), TCHAR_TO_UTF8(*LobbyPublicInfo.LobbyPassword));
-			LobbyCreated.Broadcast(LobbyData);
+			AsyncTask(ENamedThreads::GameThread, [=]() {
+				LobbyCreated.Broadcast(LobbyData);
+			});
+
 		}
 	});
 
@@ -142,6 +145,13 @@ void USteamFrameworkMain::OnLobbyDataUpdate_Steam(LobbyDataUpdate_t* LData)
 		});
 	
 	}
+}
+
+void USteamFrameworkMain::OnSteamLobbyJoinRequest(GameLobbyJoinRequested_t* LData)
+{
+	FSteamID steamdid;
+	steamdid.SetSteamID(LData->m_steamIDLobby.ConvertToUint64());
+	JoinLobby(steamdid);
 }
 
 bool USteamFrameworkMain::IsLobbyOwner()
@@ -175,6 +185,18 @@ FSteamID USteamFrameworkMain::GetLobbyOwner()
 	else {
 		return TempID;
 	}
+}
+
+void USteamFrameworkMain::JoinLobby(FSteamID LobbyID)
+{
+	SteamAPICall_t ApiCall = SteamMatchmaking()->JoinLobby(CSteamID(LobbyID.SteamID));
+	CallResult_LobbyEntered.Set(ApiCall, [=](LobbyEnter_t* Result, bool bFailure) {
+		if (!bFailure)
+		{
+			IsInLobby = true;
+			CurrentLobbySteamID.SetSteamID(Result->m_ulSteamIDLobby);
+		}
+	});
 }
 
 TArray<FSteamFriend> USteamFrameworkMain::GetLobbyMembers()
