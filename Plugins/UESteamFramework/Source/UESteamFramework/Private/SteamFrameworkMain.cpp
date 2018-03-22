@@ -8,7 +8,8 @@ Coded by Marc Fraedrich with love.
 #include "SteamFrameworkMain.h"
 #include "Runtime/Core/Public/Misc/MessageDialog.h"
 #include "SteamFrameworkHelper.h"
-
+#include "Misc/ConfigCacheIni.h"
+#include "Async.h"
 
 USteamFrameworkMain::USteamFrameworkMain(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
@@ -134,7 +135,12 @@ void USteamFrameworkMain::OnLobbyDataUpdate_Steam(LobbyDataUpdate_t* LData)
 {
 	if (LData->m_bSuccess)
 	{
-		OnLobbyDataUpdate.Broadcast();
+
+		//Async Task for broadcasting to game thread to make sure it doesn't crash in umg.
+		AsyncTask(ENamedThreads::GameThread, [=]() {
+			OnLobbyDataUpdate.Broadcast();
+		});
+	
 	}
 }
 

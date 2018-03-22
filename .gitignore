@@ -73,3 +73,7 @@ Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+# Plugin
+Plugins/UESteamFramework/Binaries/*
+Plugins/UESteamFramework/Intermediate/*
