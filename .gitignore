@@ -13,7 +13,8 @@
 # Precompiled Headers
 *.gch
 *.pch
-
+*.exp
+*.dll.response
 # Compiled Dynamic libraries
 *.so
 *.dylib
@@ -77,3 +78,4 @@ DerivedDataCache/*
 # Plugin
 Plugins/UESteamFramework/Binaries/*
 Plugins/UESteamFramework/Intermediate/*
+
