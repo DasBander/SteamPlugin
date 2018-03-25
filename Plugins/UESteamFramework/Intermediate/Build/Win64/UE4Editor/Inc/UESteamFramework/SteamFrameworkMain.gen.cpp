@@ -27,6 +27,7 @@ void EmptyLinkFunctionForGeneratedCodeSteamFrameworkMain() {}
 	UESTEAMFRAMEWORK_API UFunction* Z_Construct_UFunction_USteamFrameworkMain_GetLobbyOwner();
 	UESTEAMFRAMEWORK_API UScriptStruct* Z_Construct_UScriptStruct_FSteamID();
 	UESTEAMFRAMEWORK_API UFunction* Z_Construct_UFunction_USteamFrameworkMain_IsLobbyOwner();
+	UESTEAMFRAMEWORK_API UFunction* Z_Construct_UFunction_USteamFrameworkMain_JoinLobby();
 	UESTEAMFRAMEWORK_API UFunction* Z_Construct_UFunction_USteamFrameworkMain_LeaveLobby();
 // End Cross Module References
 	UFunction* Z_Construct_UDelegateFunction_UESteamFramework_OnLobbyDataUpdateCallback__DelegateSignature()
@@ -75,6 +76,7 @@ void EmptyLinkFunctionForGeneratedCodeSteamFrameworkMain() {}
 			{ "GetLobbyMembers", (Native)&USteamFrameworkMain::execGetLobbyMembers },
 			{ "GetLobbyOwner", (Native)&USteamFrameworkMain::execGetLobbyOwner },
 			{ "IsLobbyOwner", (Native)&USteamFrameworkMain::execIsLobbyOwner },
+			{ "JoinLobby", (Native)&USteamFrameworkMain::execJoinLobby },
 			{ "LeaveLobby", (Native)&USteamFrameworkMain::execLeaveLobby },
 		};
 		FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, ARRAY_COUNT(Funcs));
@@ -178,6 +180,30 @@ void EmptyLinkFunctionForGeneratedCodeSteamFrameworkMain() {}
 		}
 		return ReturnFunction;
 	}
+	UFunction* Z_Construct_UFunction_USteamFrameworkMain_JoinLobby()
+	{
+		struct SteamFrameworkMain_eventJoinLobby_Parms
+		{
+			FSteamID LobbyID;
+		};
+		static UFunction* ReturnFunction = nullptr;
+		if (!ReturnFunction)
+		{
+			static const UE4CodeGen_Private::FStructPropertyParams NewProp_LobbyID = { UE4CodeGen_Private::EPropertyClass::Struct, "LobbyID", RF_Public|RF_Transient|RF_MarkAsNative, 0x0010000000000080, 1, nullptr, STRUCT_OFFSET(SteamFrameworkMain_eventJoinLobby_Parms, LobbyID), Z_Construct_UScriptStruct_FSteamID, METADATA_PARAMS(nullptr, 0) };
+			static const UE4CodeGen_Private::FPropertyParamsBase* const PropPointers[] = {
+				(const UE4CodeGen_Private::FPropertyParamsBase*)&NewProp_LobbyID,
+			};
+#if WITH_METADATA
+			static const UE4CodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+				{ "Category", "Steam|Lobby" },
+				{ "ModuleRelativePath", "Public/SteamFrameworkMain.h" },
+			};
+#endif
+			static const UE4CodeGen_Private::FFunctionParams FuncParams = { (UObject*(*)())Z_Construct_UClass_USteamFrameworkMain, "JoinLobby", RF_Public|RF_Transient|RF_MarkAsNative, nullptr, (EFunctionFlags)0x04020401, sizeof(SteamFrameworkMain_eventJoinLobby_Parms), PropPointers, ARRAY_COUNT(PropPointers), 0, 0, METADATA_PARAMS(Function_MetaDataParams, ARRAY_COUNT(Function_MetaDataParams)) };
+			UE4CodeGen_Private::ConstructUFunction(ReturnFunction, FuncParams);
+		}
+		return ReturnFunction;
+	}
 	UFunction* Z_Construct_UFunction_USteamFrameworkMain_LeaveLobby()
 	{
 		static UFunction* ReturnFunction = nullptr;
@@ -212,6 +238,7 @@ void EmptyLinkFunctionForGeneratedCodeSteamFrameworkMain() {}
 				{ &Z_Construct_UFunction_USteamFrameworkMain_GetLobbyMembers, "GetLobbyMembers" }, // 2529587318
 				{ &Z_Construct_UFunction_USteamFrameworkMain_GetLobbyOwner, "GetLobbyOwner" }, // 897958258
 				{ &Z_Construct_UFunction_USteamFrameworkMain_IsLobbyOwner, "IsLobbyOwner" }, // 1937441836
+				{ &Z_Construct_UFunction_USteamFrameworkMain_JoinLobby, "JoinLobby" }, // 3202610227
 				{ &Z_Construct_UFunction_USteamFrameworkMain_LeaveLobby, "LeaveLobby" }, // 1584699629
 			};
 #if WITH_METADATA
@@ -273,7 +300,7 @@ void EmptyLinkFunctionForGeneratedCodeSteamFrameworkMain() {}
 		}
 		return OuterClass;
 	}
-	IMPLEMENT_CLASS(USteamFrameworkMain, 581047352);
+	IMPLEMENT_CLASS(USteamFrameworkMain, 2402846986);
 	static FCompiledInDefer Z_CompiledInDefer_UClass_USteamFrameworkMain(Z_Construct_UClass_USteamFrameworkMain, &USteamFrameworkMain::StaticClass, TEXT("/Script/UESteamFramework"), TEXT("USteamFrameworkMain"), false, nullptr, nullptr, nullptr);
 	DEFINE_VTABLE_PTR_HELPER_CTOR(USteamFrameworkMain);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

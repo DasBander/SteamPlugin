@@ -84,4 +84,5 @@ private:
 
 	STEAM_CALLBACK(USteamFrameworkMain, OnLobbyDataUpdate_Steam, LobbyDataUpdate_t);
 	STEAM_CALLBACK(USteamFrameworkMain, OnSteamLobbyJoinRequest, GameLobbyJoinRequested_t);
+	STEAM_CALLBACK(USteamFrameworkMain, OnSteamLobbyChatUpdate, LobbyChatUpdate_t);
 };

@@ -13,22 +13,22 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define UESTEAMFRAMEWORK_FrameworkDef_generated_h
 
-#define SteamPlugin_Plugins_UESteamFramework_Source_UESteamFramework_Public_FrameworkDef_h_121_GENERATED_BODY \
+#define SteamPlugin_Plugins_UESteamFramework_Source_UESteamFramework_Public_FrameworkDef_h_184_GENERATED_BODY \
 	friend UESTEAMFRAMEWORK_API class UScriptStruct* Z_Construct_UScriptStruct_FSteamFriend(); \
 	UESTEAMFRAMEWORK_API static class UScriptStruct* StaticStruct();
 
 
-#define SteamPlugin_Plugins_UESteamFramework_Source_UESteamFramework_Public_FrameworkDef_h_100_GENERATED_BODY \
+#define SteamPlugin_Plugins_UESteamFramework_Source_UESteamFramework_Public_FrameworkDef_h_163_GENERATED_BODY \
 	friend UESTEAMFRAMEWORK_API class UScriptStruct* Z_Construct_UScriptStruct_FLobbyResult(); \
 	UESTEAMFRAMEWORK_API static class UScriptStruct* StaticStruct();
 
 
-#define SteamPlugin_Plugins_UESteamFramework_Source_UESteamFramework_Public_FrameworkDef_h_53_GENERATED_BODY \
+#define SteamPlugin_Plugins_UESteamFramework_Source_UESteamFramework_Public_FrameworkDef_h_116_GENERATED_BODY \
 	friend UESTEAMFRAMEWORK_API class UScriptStruct* Z_Construct_UScriptStruct_FLobbyData(); \
 	UESTEAMFRAMEWORK_API static class UScriptStruct* StaticStruct();
 
 
-#define SteamPlugin_Plugins_UESteamFramework_Source_UESteamFramework_Public_FrameworkDef_h_9_GENERATED_BODY \
+#define SteamPlugin_Plugins_UESteamFramework_Source_UESteamFramework_Public_FrameworkDef_h_32_GENERATED_BODY \
 	friend UESTEAMFRAMEWORK_API class UScriptStruct* Z_Construct_UScriptStruct_FSteamID(); \
 	UESTEAMFRAMEWORK_API static class UScriptStruct* StaticStruct();
 

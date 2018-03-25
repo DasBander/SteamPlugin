@@ -63,6 +63,15 @@ static inline void FOnLobbyCreatedCallback_DelegateWrapper(const FMulticastScrip
 		P_NATIVE_END; \
 	} \
  \
+	DECLARE_FUNCTION(execJoinLobby) \
+	{ \
+		P_GET_STRUCT(FSteamID,Z_Param_LobbyID); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->JoinLobby(Z_Param_LobbyID); \
+		P_NATIVE_END; \
+	} \
+ \
 	DECLARE_FUNCTION(execCreateLobby) \
 	{ \
 		P_GET_STRUCT(FLobbyData,Z_Param_LobbyData); \
@@ -104,6 +113,15 @@ static inline void FOnLobbyCreatedCallback_DelegateWrapper(const FMulticastScrip
 		P_FINISH; \
 		P_NATIVE_BEGIN; \
 		*(bool*)Z_Param__Result=this->IsLobbyOwner(); \
+		P_NATIVE_END; \
+	} \
+ \
+	DECLARE_FUNCTION(execJoinLobby) \
+	{ \
+		P_GET_STRUCT(FSteamID,Z_Param_LobbyID); \
+		P_FINISH; \
+		P_NATIVE_BEGIN; \
+		this->JoinLobby(Z_Param_LobbyID); \
 		P_NATIVE_END; \
 	} \
  \

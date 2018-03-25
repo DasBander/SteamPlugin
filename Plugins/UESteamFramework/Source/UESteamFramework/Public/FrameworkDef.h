@@ -1,5 +1,28 @@
 #pragma once
+
+// Disable some warnings
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4996) // Unsafe strcpy warning
+#pragma warning(disable:4265) // CallBack destructor warning
+#pragma warning(disable:4828) // Steam API char offset error
+#endif
+
+// Prevent array multi-definition warning
+#pragma push_macro("ARRAY_COUNT")
+#undef ARRAY_COUNT
+#include "ThirdParty/Steamworks/Steamv139/sdk/public/steam/steam_api.h"
+// Restore the original ARRAY_COUNT macro
+#pragma pop_macro("ARRAY_COUNT")
+#include <functional>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
+
+#include "Misc/SecureHash.h"
 #include "FrameworkDef.generated.h"
+
+
 
 /*
 Structure for Steam ID
@@ -10,14 +33,54 @@ struct FSteamID {
 
 		uint64 SteamID;
 
-	FString GetSteamID()
+
+	CSteamID ToNativeID() {
+		return CSteamID(SteamID);
+	}
+	
+	uint64 ToInt64() {
+		return SteamID;
+	}
+
+	FString ToString()
 	{
 		return FString::Printf(TEXT("%llu"), SteamID);
 	}
+			
+
 
 	void SetSteamID(uint64 ID)
 	{
 		SteamID = ID;
+	}
+	void SetSteamID(CSteamID ID)
+	{
+		SteamID = ID.ConvertToUint64();
+	}
+
+	FSteamID(uint64 StID)
+	{
+		if (StID != 0)
+		{
+			SteamID = StID;
+		}
+		else
+		{
+			SteamID = 0;
+		}
+	}
+
+
+	FSteamID(CSteamID StID)
+	{
+		if (StID.ConvertToUint64() != 0)
+		{
+			SteamID = StID.ConvertToUint64();
+		}
+		else {
+			SteamID = 0;
+		}
+	
 	}
 
 	FSteamID()

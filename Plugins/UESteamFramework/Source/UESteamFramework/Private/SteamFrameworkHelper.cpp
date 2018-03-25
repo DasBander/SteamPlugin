@@ -15,7 +15,7 @@ FSteamID USteamFrameworkHelper::GetUserSteamID()
 
 FString USteamFrameworkHelper::SteamIDToString(FSteamID SteamID)
 {
-	return SteamID.GetSteamID();
+	return SteamID.ToString();
 }
 
 FSteamID USteamFrameworkHelper::MakeSteamID(FString SteamID)
@@ -37,15 +37,22 @@ UTexture2D * USteamFrameworkHelper::GetSteamAvatar(FSteamID SteamID)
 	{
 		TArray<uint8> AvatarBuffer = TArray<uint8>();
 		AvatarBuffer.AddZeroed(4 * AvatarHeight * AvatarWidth);
-		SteamUtils()->GetImageRGBA(AvatarID, AvatarBuffer.GetData(), 4 * AvatarHeight * AvatarWidth * sizeof(char));
-		UTexture2D * Avatar;
-		Avatar = UTexture2D::CreateTransient(AvatarWidth, AvatarHeight, PF_R8G8B8A8);
-		void* TextureData = Avatar->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
-		FMemory::Memcpy(TextureData, AvatarBuffer.GetData(), AvatarWidth * AvatarHeight * 4);
-		Avatar->PlatformData->Mips[0].BulkData.Unlock();
-		Avatar->UpdateResource();
-		AvatarBuffer.Empty();
-		return Avatar;
+		bool bWasSuccessful = SteamUtils()->GetImageRGBA(AvatarID, AvatarBuffer.GetData(), 4 * AvatarHeight * AvatarWidth * sizeof(char));
+		if (bWasSuccessful)
+		{
+			UTexture2D * Avatar;
+			Avatar = UTexture2D::CreateTransient(AvatarWidth, AvatarHeight, PF_R8G8B8A8);
+			void* TextureData = Avatar->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
+			FMemory::Memcpy(TextureData, AvatarBuffer.GetData(), AvatarWidth * AvatarHeight * 4);
+			Avatar->PlatformData->Mips[0].BulkData.Unlock();
+			Avatar->UpdateResource();
+			AvatarBuffer.Empty();
+			return Avatar;
+		}
+		else {
+			return nullptr;
+		}
+	
 	}
 	else {
 		return nullptr;
@@ -80,7 +87,7 @@ TArray<FSteamFriend> USteamFrameworkHelper::GetFriendsList()
 		CSteamID friendSteamID = SteamFriends()->GetFriendByIndex(i, k_EFriendFlagImmediate);
 		FString username = FString::Printf(TEXT("%s"), UTF8_TO_TCHAR(SteamFriends()->GetFriendPersonaName(friendSteamID)));
 		FSteamFriend user;
-		user.SteamID.SetSteamID(friendSteamID.ConvertToUint64());
+		user.SteamID.SetSteamID(friendSteamID);
 		user.Username = username;
 		if (SteamFriends()->GetFriendPersonaState(friendSteamID) != k_EPersonaStateOffline)
 		{

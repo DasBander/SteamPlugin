@@ -25,8 +25,8 @@ void EmptyLinkFunctionForGeneratedCodeUESteamFramework_init() {}
 			static const UE4CodeGen_Private::FPackageParams PackageParams = {
 				"/Script/UESteamFramework",
 				PKG_CompiledIn | 0x00000080,
-				0x8F61EDA1,
-				0x61859C66,
+				0x94CE945D,
+				0x2AABBE63,
 				SingletonFuncArray, ARRAY_COUNT(SingletonFuncArray),
 				METADATA_PARAMS(nullptr, 0)
 			};

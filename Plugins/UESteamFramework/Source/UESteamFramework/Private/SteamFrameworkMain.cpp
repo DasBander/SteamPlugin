@@ -138,12 +138,37 @@ void USteamFrameworkMain::OnLobbyDataUpdate_Steam(LobbyDataUpdate_t* LData)
 {
 	if (LData->m_bSuccess)
 	{
-
-		//Async Task for broadcasting to game thread to make sure it doesn't crash in umg.
+		
 		AsyncTask(ENamedThreads::GameThread, [=]() {
 			OnLobbyDataUpdate.Broadcast();
 		});
+
 	
+	}
+}
+void USteamFrameworkMain::OnSteamLobbyChatUpdate(LobbyChatUpdate_t * LData)
+{
+	//Async Task for broadcasting to game thread to make sure it doesn't crash in umg.
+	AsyncTask(ENamedThreads::GameThread, [=]() {
+		OnLobbyDataUpdate.Broadcast();
+	});
+
+	switch (LData->m_rgfChatMemberStateChange)
+	{
+	case EChatMemberStateChange::k_EChatMemberStateChangeEntered:
+		break;
+
+	case EChatMemberStateChange::k_EChatMemberStateChangeDisconnected:
+		break;
+
+	case EChatMemberStateChange::k_EChatMemberStateChangeLeft:
+		break;
+
+	case EChatMemberStateChange::k_EChatMemberStateChangeKicked:
+		break;
+
+	default:
+		break;
 	}
 }
 
@@ -213,7 +238,17 @@ TArray<FSteamFriend> USteamFrameworkMain::GetLobbyMembers()
  				CSteamID LocalPlayer = SteamMatchmaking()->GetLobbyMemberByIndex(CSteamID(CurrentLobbySteamID.SteamID), i);
  				FSteamFriend tempLobbyMember;
   				tempLobbyMember.SteamID.SetSteamID(LocalPlayer.ConvertToUint64());
-  				tempLobbyMember.Username = USteamFrameworkHelper::GetUsername(tempLobbyMember.SteamID);
+				FSteamID localid;
+				localid.SetSteamID(LocalPlayer);
+				if (SteamUser()->GetSteamID().ConvertToUint64() == localid.SteamID)
+				{
+					FString username(SteamFriends()->GetPersonaName());
+					tempLobbyMember.Username = username;
+				}
+				else {
+					FString username(SteamFriends()->GetPlayerNickname(CSteamID(localid.SteamID)));
+					tempLobbyMember.Username = username;
+				}
   				PlayersInLobby.Add(tempLobbyMember);
  			}
   	}
