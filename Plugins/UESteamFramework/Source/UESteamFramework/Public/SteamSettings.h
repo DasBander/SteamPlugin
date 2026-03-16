@@ -1,41 +1,67 @@
-/*
-Copyright (c) 2018 FinalSpark Gamestudios
-Coded by Marc Fraedrich with love.
-*/
+// Copyright Marc Fraedrich. All Rights Reserved.
 #pragma once
 
 #include "CoreMinimal.h"
-#include "UESteamFramework.h"
-#include "UObject/NoExportTypes.h"
-#include "Developer/Settings/Public/ISettingsModule.h"
-#include "Developer/Settings/Public/ISettingsSection.h"
-#include "Developer/Settings/Public/ISettingsContainer.h"
-
-
-
-
+#include "Engine/DeveloperSettings.h"
 #include "SteamSettings.generated.h"
 
-
 /**
- * 
+ * Project-wide Steam Framework settings.
+ * Accessible via Edit > Project Settings > Plugins > Steam Framework.
+ * Values are saved to Config/DefaultGame.ini under [/Script/UESteamFramework.SteamSettings].
  */
-UCLASS(config = SteamFramework, defaultconfig, meta = (DisplayName = "Steam Framework"))
-class UESTEAMFRAMEWORK_API USteamSettings : public UObject
+UCLASS(Config = Game, DefaultConfig, meta = (DisplayName = "Steam Framework"))
+class UESTEAMFRAMEWORK_API USteamSettings : public UDeveloperSettings
 {
-	GENERATED_UCLASS_BODY()
+	GENERATED_BODY()
 
 public:
-		UPROPERTY(config, EditAnywhere, Category = "Steam | Core")
-		FString AppID;
+	USteamSettings();
 
-		UPROPERTY(config, EditAnywhere, Category = "Steam | Dedicated Server")
-			FString ProductID;
+	// -------------------------------------------------------------------
+	// Core
+	// -------------------------------------------------------------------
 
-		UPROPERTY(config, EditAnywhere, Category = "Steam | Dedicated Server")
-			FString SteamVersion;
-		
-		UPROPERTY(config, EditAnywhere, Category = "Steam | Product Protection")
-			bool EnableProductProtection;
-	
+	/** Your Steam App ID.  480 = Spacewar (development/testing). */
+	UPROPERTY(Config, EditAnywhere, Category = "Core",
+		meta = (DisplayName = "App ID", ClampMin = "1"))
+	int32 AppID = 480;
+
+	/**
+	 * When true the framework verifies at startup that the running App ID matches
+	 * what Steam reports.  Disable during development if you are testing with
+	 * a different App ID than the one set here.
+	 */
+	UPROPERTY(Config, EditAnywhere, Category = "Core",
+		meta = (DisplayName = "Enforce App Ownership Check"))
+	bool bEnforceOwnershipCheck = true;
+
+	// -------------------------------------------------------------------
+	// Dedicated Server (GameServer API)
+	// -------------------------------------------------------------------
+
+	/** Product name shown in server browser / backend. */
+	UPROPERTY(Config, EditAnywhere, Category = "Dedicated Server",
+		meta = (DisplayName = "Product Name"))
+	FString ProductName = TEXT("MyGame");
+
+	/** Game description shown in server browser. */
+	UPROPERTY(Config, EditAnywhere, Category = "Dedicated Server",
+		meta = (DisplayName = "Game Description"))
+	FString GameDescription = TEXT("My Steam Game");
+
+	/** Mod directory / game dir. */
+	UPROPERTY(Config, EditAnywhere, Category = "Dedicated Server",
+		meta = (DisplayName = "Game Directory"))
+	FString GameDirectory = TEXT("mygame");
+
+	/** Server version string sent to Steam. */
+	UPROPERTY(Config, EditAnywhere, Category = "Dedicated Server",
+		meta = (DisplayName = "Server Version"))
+	FString ServerVersion = TEXT("1.0.0.0");
+
+	// -------------------------------------------------------------------
+	// UDeveloperSettings interface
+	// -------------------------------------------------------------------
+	virtual FName GetCategoryName() const override { return FName("Plugins"); }
 };

@@ -1,4 +1,4 @@
-// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+// Copyright Marc Fraedrich. All Rights Reserved.
 
 using UnrealBuildTool;
 
@@ -7,59 +7,31 @@ public class UESteamFramework : ModuleRules
 	public UESteamFramework(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-		
-		PublicIncludePaths.AddRange(
-			new string[] {
-				"UESteamFramework/Public"
-				// ... add public include paths required here ...
-			}
-			);
-				
-		
-		PrivateIncludePaths.AddRange(
-			new string[] {
-				"UESteamFramework/Private",
-				// ... add other private include paths required here ...
-			}
-			);
-			
-		
-		PublicDependencyModuleNames.AddRange(
-			new string[]
-			{
-				"Core",
-                "OnlineSubsystem",
-                "OnlineSubsystemUtils",
-                "UMG",
-                "Steamworks",
-                "Engine"
-            }
-			);
-			
-		
-		PrivateDependencyModuleNames.AddRange(
-			new string[]
-			{
-				"CoreUObject",
-				"Engine",
-				"Slate",
-				"SlateCore",
-                "Json",
-                "JsonUtilities",
-                "OnlineSubsystem",
-                "OnlineSubsystemUtils"
-				// ... add private dependencies that you statically link with here ...	
-			}
-            );
 
+		PublicDependencyModuleNames.AddRange(new string[]
+		{
+			"Core",
+			"CoreUObject",
+			"Engine",
+			"OnlineSubsystem",
+			"OnlineSubsystemUtils",
+			"Steamworks",
+		});
 
+		PrivateDependencyModuleNames.AddRange(new string[]
+		{
+			"Slate",
+			"SlateCore",
+			"DeveloperSettings",
+		});
 
-        DynamicallyLoadedModuleNames.AddRange(
-			new string[]
-			{
-                "OnlineSubsystemSteam",
-                "OnlineSubsystemNull"
-            }
-			);
+		// Steamworks SDK include paths are managed by the Steamworks module.
+		// Adding it as a private static dependency makes the SDK headers available.
+		AddEngineThirdPartyPrivateStaticDependencies(Target, "Steamworks");
+
+		DynamicallyLoadedModuleNames.AddRange(new string[]
+		{
+			"OnlineSubsystemSteam",
+		});
 	}
 }

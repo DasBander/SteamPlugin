@@ -1,8 +1,8 @@
 {
 	"FileVersion": 3,
-	"EngineAssociation": "{2E4CA62C-419B-63DC-C773-EE828828B0CF}",
+	"EngineAssociation": "5.6",
 	"Category": "",
-	"Description": "",
+	"Description": "UE Steam Framework demo project",
 	"Modules": [
 		{
 			"Name": "SteamPlugin",
@@ -19,7 +19,7 @@
 			"Enabled": true
 		},
 		{
-			"Name": "ApexDestruction",
+			"Name": "UESteamFramework",
 			"Enabled": true
 		}
 	]
