@@ -1,4 +1,4 @@
-// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+// Copyright Epic Games, Inc. All Rights Reserved.
 
 #pragma once
 
@@ -78,7 +78,7 @@ public:
 
 	/** Whether to use motion controller location for aiming. */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	uint32 bUsingMotionControllers : 1;
+	bool bUsingMotionControllers = false;
 
 protected:
 	

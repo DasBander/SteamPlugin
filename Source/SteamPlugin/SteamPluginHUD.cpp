@@ -1,4 +1,4 @@
-// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+// Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "SteamPluginHUD.h"
 #include "Engine/Canvas.h"
@@ -29,7 +29,7 @@ void ASteamPluginHUD::DrawHUD()
 										   (Center.Y + 20.0f));
 
 	// draw the crosshair
-	FCanvasTileItem TileItem( CrosshairDrawPosition, CrosshairTex->Resource, FLinearColor::White);
+	FCanvasTileItem TileItem( CrosshairDrawPosition, CrosshairTex->GetResource(), FLinearColor::White);
 	TileItem.BlendMode = SE_BLEND_Translucent;
 	Canvas->DrawItem( TileItem );
 }

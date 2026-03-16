@@ -1,4 +1,4 @@
-// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+// Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "SteamPluginCharacter.h"
 #include "SteamPluginProjectile.h"
@@ -10,6 +10,7 @@
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
+#include "XRMotionControllerBase.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogFPChar, Warning, All);
 
@@ -28,7 +29,7 @@ ASteamPluginCharacter::ASteamPluginCharacter()
 	// Create a CameraComponent	
 	FirstPersonCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("FirstPersonCamera"));
 	FirstPersonCameraComponent->SetupAttachment(GetCapsuleComponent());
-	FirstPersonCameraComponent->RelativeLocation = FVector(-39.56f, 1.75f, 64.f); // Position the camera
+	FirstPersonCameraComponent->SetRelativeLocation(FVector(-39.56f, 1.75f, 64.f)); // Position the camera
 	FirstPersonCameraComponent->bUsePawnControlRotation = true;
 
 	// Create a mesh component that will be used when being viewed from a '1st person' view (when controlling this pawn)
@@ -37,8 +38,8 @@ ASteamPluginCharacter::ASteamPluginCharacter()
 	Mesh1P->SetupAttachment(FirstPersonCameraComponent);
 	Mesh1P->bCastDynamicShadow = false;
 	Mesh1P->CastShadow = false;
-	Mesh1P->RelativeRotation = FRotator(1.9f, -19.19f, 5.2f);
-	Mesh1P->RelativeLocation = FVector(-0.5f, -4.4f, -155.7f);
+	Mesh1P->SetRelativeRotation(FRotator(1.9f, -19.19f, 5.2f));
+	Mesh1P->SetRelativeLocation(FVector(-0.5f, -4.4f, -155.7f));
 
 	// Create a gun mesh component
 	FP_Gun = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("FP_Gun"));
@@ -60,7 +61,7 @@ ASteamPluginCharacter::ASteamPluginCharacter()
 
 	// Create VR Controllers.
 	R_MotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("R_MotionController"));
-	R_MotionController->Hand = EControllerHand::Right;
+	R_MotionController->MotionSource = FXRMotionControllerBase::RightHandSourceId;
 	R_MotionController->SetupAttachment(RootComponent);
 	L_MotionController = CreateDefaultSubobject<UMotionControllerComponent>(TEXT("L_MotionController"));
 	L_MotionController->SetupAttachment(RootComponent);
@@ -140,10 +141,10 @@ void ASteamPluginCharacter::SetupPlayerInputComponent(class UInputComponent* Pla
 void ASteamPluginCharacter::OnFire()
 {
 	// try and fire a projectile
-	if (ProjectileClass != NULL)
+	if (ProjectileClass != nullptr)
 	{
 		UWorld* const World = GetWorld();
-		if (World != NULL)
+		if (World != nullptr)
 		{
 			if (bUsingMotionControllers)
 			{
@@ -168,13 +169,13 @@ void ASteamPluginCharacter::OnFire()
 	}
 
 	// try and play the sound if specified
-	if (FireSound != NULL)
+	if (FireSound != nullptr)
 	{
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 	}
 
 	// try and play a firing animation if specified
-	if (FireAnimation != NULL)
+	if (FireAnimation != nullptr)
 	{
 		// Get the animation object for the arms mesh
 		UAnimInstance* AnimInstance = Mesh1P->GetAnimInstance();
