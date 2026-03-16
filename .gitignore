@@ -3,7 +3,7 @@
 
 # Visual Studio 2015 database file
 *.VC.db
-
+.claude
 # Compiled Object files
 *.slo
 *.lo
