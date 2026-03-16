@@ -1,8 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(tree -L 3 -I '.git' \"C:\\\\Users\\\\mfraedrich.2WCOM\\\\Documents\\\\GitHub\\\\AE\\\\SteamPlugin\" 2>/dev/null || find \"C:\\\\Users\\\\mfraedrich.2WCOM\\\\Documents\\\\GitHub\\\\AE\\\\SteamPlugin\" -not -path '*/\\\\.*' -not -path '*/Intermediate/*' -not -path '*/Content/*' -not -path '*/Releases/*' -type f | sort)",
-      "Bash(cd \"C:\\\\Users\\\\mfraedrich.2WCOM\\\\Documents\\\\GitHub\\\\AE\\\\SteamPlugin\\\\Plugins\\\\UESteamFramework\\\\Source\\\\UESteamFramework\" && rm -f Public/FrameworkDef.h Public/SteamFrameworkMain.h Public/SteamFrameworkHelper.h Public/UESFGameInstance.h Public/steamsdk_lambda_callresults.h Private/SteamFrameworkMain.cpp Private/SteamFrameworkHelper.cpp Private/UESFGameInstance.cpp && echo \"Done\")"
-    ]
-  }
-}
