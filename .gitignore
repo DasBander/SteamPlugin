@@ -87,3 +87,6 @@ DerivedDataCache/*
 Plugins/UESteamFramework/Binaries/*
 Plugins/UESteamFramework/Intermediate/*
 
+# Releases
+Releases/
+
