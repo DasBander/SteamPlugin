@@ -3,7 +3,14 @@
 
 # Visual Studio 2015 database file
 *.VC.db
-.claude
+.claude/
+
+# Unreal Engine
+*.uproject.user
+*.umap.bak
+*.uasset.bak
+FileOpenOrder/
+
 # Compiled Object files
 *.slo
 *.lo
